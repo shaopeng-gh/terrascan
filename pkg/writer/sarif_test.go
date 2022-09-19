@@ -18,61 +18,61 @@ var testpath = fmt.Sprintf("file://%s", abstestpath)
 var testpathForGH = violationsInput.Violations[0].File
 
 const violationTemplate = `{
-  "version": "2.1.0",
-  "$schema": "https://json.schemastore.org/sarif-2.1.0-rtm.5.json",
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "informationUri": "https://github.com/tenable/terrascan",
-          "name": "terrascan",
-          "rules": [
+          "version": "2.1.0",
+          "$schema": "https://json.schemastore.org/sarif-2.1.0-rtm.5.json",
+          "runs": [
             {
-              "id": "AWS.S3Bucket.DS.High.1043",
-              "name": "s3EnforceUserACL",
-              "shortDescription": {
-                "text": "S3 bucket Access is allowed to all AWS Account Users."
-              },
-              "properties": {
-                "category": "S3",
-                "severity": "HIGH"
-              }
-            }
-          ],
-          "version": "%s"
-        }
-      },
-      "results": [
-        {
-          "ruleId": "AWS.S3Bucket.DS.High.1043",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "S3 bucket Access is allowed to all AWS Account Users."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "%s"
-                },
-                "region": {
-                  "startLine": 20
+              "tool": {
+                "driver": {
+                  "informationUri": "https://github.com/tenable/terrascan",
+                  "name": "terrascan",
+                  "rules": [
+                    {
+                      "id": "AWS.S3Bucket.DS.High.1043",
+                      "name": "s3EnforceUserACL",
+                      "shortDescription": {
+                        "text": "S3 bucket Access is allowed to all AWS Account Users."
+                      },
+                      "properties": {
+                        "category": "S3",
+                        "severity": "HIGH"
+                      }
+                    }
+                  ],
+                  "version": "%s"
                 }
               },
-              "logicalLocations": [
+              "results": [
                 {
-                  "name": "bucket",
-                  "kind": "aws_s3_bucket"
+                  "ruleId": "AWS.S3Bucket.DS.High.1043",
+                  "ruleIndex": 0,
+                  "level": "error",
+                  "message": {
+                    "text": "S3 bucket Access is allowed to all AWS Account Users."
+                  },
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "%s"
+                        },
+                        "region": {
+                          "startLine": 20
+                        }
+                      },
+                      "logicalLocations": [
+                        {
+                          "name": "bucket",
+                          "kind": "aws_s3_bucket"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
           ]
-        }
-      ]
-    }
-  ]
-}`
+        }`
 
 var expectedSarifOutput1 = fmt.Sprintf(violationTemplate, version.GetNumeric(), testpath)
 
@@ -83,9 +83,10 @@ var expectedSarifOutput2 = fmt.Sprintf(`{
             {
               "tool": {
                 "driver": {
+                  "informationUri": "https://github.com/tenable/terrascan",
                   "name": "terrascan",
-                  "version": "%s",
-                  "informationUri": "https://github.com/tenable/terrascan"
+                  "rules": [],
+                  "version": "%s"
                 }
               },
               "results": []
