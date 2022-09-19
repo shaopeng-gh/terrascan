@@ -22,7 +22,7 @@ import (
 	"strings"
 
 	"github.com/go-errors/errors"
-	"github.com/owenrumney/go-sarif/sarif"
+	"github.com/owenrumney/go-sarif/v2/sarif"
 	"github.com/tenable/terrascan/pkg/policy"
 	"github.com/tenable/terrascan/pkg/utils"
 	"github.com/tenable/terrascan/pkg/version"
@@ -49,7 +49,7 @@ func writeSarif(data interface{}, writers []io.Writer, forGithub bool) error {
 		return err
 	}
 
-	run := sarif.NewRun("terrascan", "https://github.com/tenable/terrascan")
+	run := sarif.NewRunWithInformationURI("terrascan", "https://github.com/tenable/terrascan")
 	run.Tool.Driver.WithVersion(version.GetNumeric())
 	// add a run to the report
 	report.AddRun(run)
@@ -97,10 +97,10 @@ func writeSarif(data interface{}, writers []io.Writer, forGithub bool) error {
 				WithKind(violation.ResourceType).WithName(violation.ResourceName))
 		}
 
-		run.AddResult(rule.ID).
+		run.AddResult(sarif.NewRuleResult(rule.ID).
 			WithMessage(sarif.NewTextMessage(violation.Description)).
 			WithLevel(getSarifLevel(violation.Severity)).
-			WithLocation(location)
+			WithLocations([]*sarif.Location{location}))
 	}
 
 	for _, writer := range writers {
