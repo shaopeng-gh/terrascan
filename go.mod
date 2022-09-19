@@ -68,10 +68,7 @@ require (
 	sigs.k8s.io/kustomize/kyaml v0.11.0
 )
 
-require (
-	github.com/awslabs/goformation/v6 v6.10.0
-	github.com/owenrumney/go-sarif v1.1.1
-)
+require github.com/awslabs/goformation/v6 v6.10.0
 
 require (
 	cloud.google.com/go/storage v1.10.0 // indirect

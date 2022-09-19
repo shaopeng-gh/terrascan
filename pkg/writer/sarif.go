@@ -103,6 +103,22 @@ func writeSarif(data interface{}, writers []io.Writer, forGithub bool) error {
 			WithLocations([]*sarif.Location{location}))
 	}
 
+	if len(outputData.DirScanErrors) > 0 {
+		notifications := []*sarif.Notification{}
+
+		for _, dirScanError := range outputData.DirScanErrors {
+			notifications = append(notifications,
+				sarif.NewNotification().
+					WithLevel("error").
+					WithMessage(sarif.NewTextMessage(dirScanError.ErrMessage)))
+		}
+
+		invocation := sarif.NewInvocation().
+			WithExecutionSuccess(false).
+			WithToolExecutionNotifications(notifications)
+		report.Runs[0].Invocations = append(report.Runs[0].Invocations, invocation)
+	}
+
 	for _, writer := range writers {
 		// print the report to anything that implements `io.Writer`
 		err = report.PrettyWrite(writer)
