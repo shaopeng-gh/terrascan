@@ -116,7 +116,7 @@ func writeSarif(data interface{}, writers []io.Writer, forGithub bool) error {
 		invocation := sarif.NewInvocation().
 			WithExecutionSuccess(true).
 			WithToolExecutionNotifications(notifications)
-		report.Runs[0].Invocations = append(report.Runs[0].Invocations, invocation)
+		run.Invocations = append(run.Invocations, invocation)
 	}
 
 	for _, writer := range writers {
