@@ -131,9 +131,8 @@ var expectedSarifOutput4 = fmt.Sprintf(`{
             {
               "tool": {
                 "driver": {
-                  "name": "terrascan",
-                  "version": "%s",
                   "informationUri": "https://github.com/tenable/terrascan",
+                  "name": "terrascan",
                   "rules": [
                     {
                       "id": "AWS.S3Bucket.DS.High.1043",
@@ -146,9 +145,29 @@ var expectedSarifOutput4 = fmt.Sprintf(`{
                         "severity": "HIGH"
                       }
                     }
-                  ]
+                  ],
+                  "version": "%s"
                 }
               },
+              "invocations": [
+                {
+                  "executionSuccessful": true,
+                  "toolExecutionNotifications": [
+                    {
+                      "level": "warning",
+                      "message": {
+                        "text": "kustomization.y(a)ml file not found in the directory test/e2e/test_data/iac/aws/aws_db_instance_violation"
+                      }
+                    },
+                    {
+                      "level": "warning",
+                      "message": {
+                        "text": "no helm charts found in directory test/e2e/test_data/iac/aws/aws_db_instance_violation"
+                      }
+                    }
+                  ]
+                }
+              ],
               "results": []
             }
           ]
