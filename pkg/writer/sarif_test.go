@@ -101,9 +101,8 @@ var expectedSarifOutput3 = fmt.Sprintf(`{
             {
               "tool": {
                 "driver": {
-                  "name": "terrascan",
-                  "version": "%s",
                   "informationUri": "https://github.com/tenable/terrascan",
+                  "name": "terrascan",
                   "rules": [
                     {
                       "id": "AWS.S3Bucket.DS.High.1043",
@@ -116,7 +115,8 @@ var expectedSarifOutput3 = fmt.Sprintf(`{
                         "severity": "HIGH"
                       }
                     }
-                  ]
+                  ],
+                  "version": "%s"
                 }
               },
               "results": []
