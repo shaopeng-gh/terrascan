@@ -124,6 +124,36 @@ var expectedSarifOutput3 = fmt.Sprintf(`{
           ]
         }`, version.GetNumeric())
 
+var expectedSarifOutput4 = fmt.Sprintf(`{
+          "version": "2.1.0",
+          "$schema": "https://json.schemastore.org/sarif-2.1.0-rtm.5.json",
+          "runs": [
+            {
+              "tool": {
+                "driver": {
+                  "name": "terrascan",
+                  "version": "%s",
+                  "informationUri": "https://github.com/tenable/terrascan",
+                  "rules": [
+                    {
+                      "id": "AWS.S3Bucket.DS.High.1043",
+                      "name": "s3EnforceUserACL",
+                      "shortDescription": {
+                        "text": "S3 bucket Access is allowed to all AWS Account Users."
+                      },
+                      "properties": {
+                        "category": "S3",
+                        "severity": "HIGH"
+                      }
+                    }
+                  ]
+                }
+              },
+              "results": []
+            }
+          ]
+        }`, version.GetNumeric())
+
 func TestSarifWriter(t *testing.T) {
 
 	type funcInput interface{}
@@ -151,6 +181,11 @@ func TestSarifWriter(t *testing.T) {
 			name:           "Human Readable Writer: With PassedRules",
 			input:          outputWithPassedRules,
 			expectedOutput: expectedSarifOutput3,
+		},
+		{
+			name:           "Human Readable Writer: with directory scan error",
+			input:          outputWithDirScanErrors,
+			expectedOutput: expectedSarifOutput4,
 		},
 	}
 

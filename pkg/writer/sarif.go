@@ -109,12 +109,12 @@ func writeSarif(data interface{}, writers []io.Writer, forGithub bool) error {
 		for _, dirScanError := range outputData.DirScanErrors {
 			notifications = append(notifications,
 				sarif.NewNotification().
-					WithLevel("error").
+					WithLevel("warning").
 					WithMessage(sarif.NewTextMessage(dirScanError.ErrMessage)))
 		}
 
 		invocation := sarif.NewInvocation().
-			WithExecutionSuccess(false).
+			WithExecutionSuccess(true).
 			WithToolExecutionNotifications(notifications)
 		report.Runs[0].Invocations = append(report.Runs[0].Invocations, invocation)
 	}
